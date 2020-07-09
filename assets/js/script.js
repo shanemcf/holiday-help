@@ -109,6 +109,7 @@ var getWeather = function(weather){
 }
 
 
+  
     // sets the function for Holiday API
     function showHoliday() {
 
@@ -139,7 +140,7 @@ var getWeather = function(weather){
     
       // calls the Request for API
     
-      for (var i=0; i<=2; i++) {
+      for (let i=0; i<=2; i++) {
         console.log(i)
       fetch(`https://calendarific.com/api/v2/holidays?api_key=${apikey}&country=US&year=${holidayYear}&month=${holidayMonth}&day=${addingDay}`)
         //console.log(addingDay)
@@ -148,7 +149,7 @@ var getWeather = function(weather){
                 console.log("holiday", holiday)
              var AA = document.createElement('p')
                   AA.innerText += ""
-            
+                  
                 //runs if statement to display if there is a holiday
                  if (holiday.response.holidays.length == 0) {
                      AA.innerHTML = 'there is no Holiday today';
@@ -158,9 +159,9 @@ var getWeather = function(weather){
                      AA.innerText += holiday.response.holidays[0].name;
                     //   blueHoliday[i+1]El.appendChild(AA)
                      
-                 } else if (holiday.response.holidays.length >= 1) {
-                     for (var i=0; i<holiday.response.holidays.length; i++) {
-                         variable.innerText += holiday.response.holidays[1].name;
+                 } else if (holiday.response.holidays.length > 1) {
+                     for (var m=0; m<holiday.response.holidays.length; m++) {
+                         variable.innerText += holiday.response.holidays[m].name;
                     //    blueHoliday[i+1]El.appendChild(AA)
                        
                      }                     
@@ -169,11 +170,95 @@ var getWeather = function(weather){
                  } else {
                      window.alert ("error");
                  }
+                 
+                 
                  if (i ===0) {
                     blueHoliday0El.appendChild(AA);
              } else if (i ===1){
                   blueHoliday1El.appendChild(AA);
-             } else {
+             } else  {
+                  blueHoliday2El.appendChild(AA);
+             }
+             });
+             
+
+            })
+             
+
+
+            addingDay++
+            
+        }
+        
+    }
+ 
+    // sets the function for Holiday API
+    function showHoliday() {
+
+        //var cardHoliday =createElement("div")
+    
+      var holidayDay = moment().format("DD")
+      var addingDay = holidayDay;
+      var holidayMonth = moment().format("MM")
+      var holidayYear = moment().format("YYYY")
+      var todayDate = moment().format('MM/DD/YYYY')
+     var tomorrowDate = moment().add(1,'days').format('MM/DD/YYYY')
+     var followingDate = moment().add(2,'days').format('MM/DD/YYYY')
+        var blueHoliday0El = document.getElementById("blue-holiday0")
+        blueHoliday0El.className = "row show";  
+        blueHoliday0El.innerHTML += todayDate;
+        var blueHoliday1El = document.getElementById("blue-holiday1")
+        blueHoliday1El.className = "row show";  
+        blueHoliday1El.innerHTML += tomorrowDate;
+        var blueHoliday2El = document.getElementById("blue-holiday2")
+        blueHoliday2El.innerHTML += followingDate;
+        blueHoliday2El.className = "row show";   
+        var AA = document.createElement('p')
+      
+    
+        // Key for the API
+      
+      var apikey = "47cffd35c3b98761e7a671cc818f58812739481a";    
+    
+      // calls the Request for API
+    
+      for (let i=0; i<=2; i++) {
+        console.log(i)
+      fetch(`https://calendarific.com/api/v2/holidays?api_key=${apikey}&country=US&year=${holidayYear}&month=${holidayMonth}&day=${addingDay}`)
+        //console.log(addingDay)
+           .then(function(response) {
+             response.json().then(function (holiday) {
+                console.log("holiday", holiday)
+             var AA = document.createElement('p')
+                  AA.innerText += ""
+                  
+                //runs if statement to display if there is a holiday
+                 if (holiday.response.holidays.length == 0) {
+                     AA.innerHTML = 'there is no Holiday today';
+                    //    blueHoliday[i]El.appendChild(AA);
+                    
+                 } else if ( holiday.response.holidays.length == 1) {
+                     AA.innerText += holiday.response.holidays[0].name;
+                    //   blueHoliday[i+1]El.appendChild(AA)
+                     
+                 } else if (holiday.response.holidays.length > 1) {
+                     for (var m=0; m<holiday.response.holidays.length; m++) {
+                         variable.innerText += holiday.response.holidays[m].name;
+                    //    blueHoliday[i+1]El.appendChild(AA)
+                       
+                     }                     
+                  
+                
+                 } else {
+                     window.alert ("error");
+                 }
+                 
+                 
+                 if (i ===0) {
+                    blueHoliday0El.appendChild(AA);
+             } else if (i ===1){
+                  blueHoliday1El.appendChild(AA);
+             } else  {
                   blueHoliday2El.appendChild(AA);
              }
              });
